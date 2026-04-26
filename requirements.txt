@@ -1,0 +1,8 @@
+# Requirements for multi_media.py
+# Install into your virtualenv, e.g. .venv/bin/pip install -r requirements.txt
+numpy
+opencv-python
+jpegio
+tqdm
+Pillow
+scipy

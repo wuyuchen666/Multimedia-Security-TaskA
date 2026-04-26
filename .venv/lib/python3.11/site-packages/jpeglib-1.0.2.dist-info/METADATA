@@ -1,0 +1,168 @@
+Metadata-Version: 2.4
+Name: jpeglib
+Version: 1.0.2
+Summary: Python envelope for the popular C library libjpeg for handling JPEG files.
+Author: Martin Beneš
+Author-email: martinbenes1996@gmail.com
+License: MPL
+Project-URL: Homepage, https://pypi.org/project/jpeglib/
+Project-URL: Documentation, https://jpeglib.readthedocs.io/en/latest/
+Project-URL: Source, https://github.com/martinbenes1996/jpeglib/
+Keywords: jpeglib,jpeg,jpg,libjpeg,compression,decompression,dct-coefficients,dct
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Other Audience
+Classifier: License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: C
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Education
+Classifier: Topic :: Multimedia
+Classifier: Topic :: Multimedia :: Graphics
+Classifier: Topic :: Multimedia :: Graphics :: Graphics Conversion
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Image Processing
+Classifier: Topic :: Scientific/Engineering :: Image Recognition
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: Topic :: Security
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: wheel
+Requires-Dist: numpy
+Requires-Dist: setuptools
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: summary
+
+[![PyPI version](https://badge.fury.io/py/jpeglib.svg)](https://pypi.org/project/jpeglib/)
+[![Commit CI/CD](https://github.com/martinbenes1996/jpeglib/actions/workflows/on_commit.yml/badge.svg?branch=master)](https://github.com/martinbenes1996/jpeglib/actions/workflows/on_commit.yml)
+[![Release CI/CD](https://github.com/martinbenes1996/jpeglib/actions/workflows/on_release.yml/badge.svg)](https://github.com/martinbenes1996/jpeglib/actions/workflows/on_release.yml)
+[![Documentation Status](https://readthedocs.org/projects/jpeglib/badge/?version=latest)](https://jpeglib.readthedocs.io/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/jpeglib)](https://pypi.org/project/jpeglib/)
+[![Stars](https://img.shields.io/github/stars/martinbenes1996/jpeglib.svg)](https://github.com/martinbenes1996/jpeglib/stargazers)
+[![Contributors](https://img.shields.io/github/contributors/martinbenes1996/jpeglib)](https://github.com/martinbenes1996/jpeglib/graphs/contributors)
+[![Wheel](https://img.shields.io/pypi/wheel/jpeglib)](https://pypi.org/project/jpeglib/)
+[![Status](https://img.shields.io/pypi/status/jpeglib)](https://pypi.org/project/jpeglib/)
+[![PyPi license](https://badgen.net/pypi/license/jpeglib)](https://pypi.org/project/jpeglib/)
+[![Last commit](https://img.shields.io/github/last-commit/martinbenes1996/jpeglib)](https://GitHub.com/martinbenes1996/jpeglib)
+
+
+# jpeglib
+
+Python envelope for the popular C library libjpeg for handling JPEG files.
+
+*libjpeg* offers full control over compression and decompression and exposes DCT coefficients and quantization tables.
+
+## Installation
+
+Simply install the package with pip3
+
+
+```bash
+pip install jpeglib
+```
+
+or using the cloned repository
+
+```bash
+python setup.py install
+```
+
+
+> :warning: This will install `jpeglib` together with multiple versions of libjpeg, libjpeg-turbo and mozjpeg. For common architectures/OS we provide prebuilt wheels, but installing from source takes couple of minutes.
+
+## Usage
+
+Import the library in Python 3
+
+```python
+import jpeglib
+```
+
+### DCT
+
+Get *discrete cosine transform* (DCT) coefficients and quantization matrices as numpy array
+
+
+```python
+im = jpeglib.read_dct('input.jpeg')
+im.Y; im.Cb; im.Cr; im.qt
+```
+
+You get luminance DCT, chrominance DCT and quantization tables.
+
+Write the DCT coefficients back to a file with
+
+```python
+im.write_dct('output.jpeg')
+```
+
+### Pixel data
+
+Decompress the `input.jpeg` into spatial representation in numpy array with
+
+```python
+im = jpeglib.read_spatial('input.jpeg')
+im.spatial
+```
+
+You can specify parameters such as output color space, DCT method, dithering, etc.
+
+Write spatial representation in numpy arrray back to file with
+
+```python
+im.write_spatial('output.jpeg')
+```
+
+You can specify input color space, DCT method, sampling factor, output quality, smoothing factor etc.
+
+You can find all the details in the [documentation](https://jpeglib.readthedocs.io/).
+
+### libjpeg version
+
+It is possible to choose, which version of libjpeg should be used.
+
+```python
+jpeglib.version.set('6b')
+```
+
+Currently `jpeglib` supports all versions of libjpeg from 6b to 9e, libjpeg-turbo 2.1.0 and mozjpeg 4.0.3.
+Their source codes is baked inside the package and thus distributed with it, avoiding external dependency.
+
+Get currently used libjpeg version by
+
+```python
+version = jpeglib.version.get()
+```
+
+You can also set a libjpeg version for a scope only.
+
+```python
+jpeglib.version.set('6b')
+im = jpeglib.read_spatial('image.jpeg') # using 6b
+with jpeglib.version('9e'):
+    im = jpeglib.read_spatial('image.jpeg') # using 9e
+im = jpeglib.read_spatial('image.jpeg') # using 6b again
+```
+
+
+## Credits
+
+Developed by [Martin Benes](https://github.com/martinbenes1996), University of Innsbruck, 2023.
+

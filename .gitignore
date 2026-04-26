@@ -1,0 +1,11 @@
+# 忽略数据集文件夹
+BOSSbase_1.01/
+multi_media/
+
+# 忽略临时生成的图片文件夹
+temp_stego/
+
+# 忽略 Python 缓存文件
+__pycache__/
+*.pyc
+.DS_Store
