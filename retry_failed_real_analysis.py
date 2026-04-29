@@ -138,7 +138,7 @@ def build_parser():
     parser.add_argument("--env-file", default=".env")
     parser.add_argument("--dataset", default=real20.DEFAULT_DATASET)
     parser.add_argument("--Qo", type=int, default=95)
-    parser.add_argument("--Qc", type=int, default=80)
+    parser.add_argument("--Qc", type=int, default=caca.DEFAULT_QC)
     parser.add_argument("--payload", type=float, default=0.2)
     parser.add_argument("--constraint-height", type=int, default=10)
     parser.add_argument("--key", type=int, default=1234)

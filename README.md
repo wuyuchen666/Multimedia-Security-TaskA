@@ -70,7 +70,7 @@ python caca_algorithm.py embed input.pgm --message-file secret.bin --output caca
 python caca_algorithm.py extract caca_intermediate.jpg --key 1234 --output recovered.bin
 ```
 
-默认参数：`Qo=95`，`Qc=80`，`payload=0.2 bpnzac`，`STC h=10`，小波滤波器为 `Daubechies 8`，平滑常数 `sigma=2^-50`，CACA 搜索截断范围为 `[-2, 2]`。
+默认参数：`Qo=95`，`Qc=87`，`payload=0.2 bpnzac`，`STC h=10`，小波滤波器为 `Daubechies 8`，平滑常数 `sigma=2^-50`，CACA 搜索截断范围为 `[-2, 2]`。其中 `Qc=87` 来自 Telegram `sendPhoto` 返回 JPEG 量化表的 5 图实测等效 QF。
 
 说明：该程序保证的是论文公式中的理想 DCT 信道，即 `round(I * Mo / Mc) == S`；真实社交平台 JPEG 重压缩包含空域舍入和像素裁剪，不能由这个约束直接保证 100% 提取。若某些系数在默认 `[-2, 2]` 截断范围内没有合法解，程序会对这些系数回退到完整合法解空间并在诊断信息中报告数量。
 
