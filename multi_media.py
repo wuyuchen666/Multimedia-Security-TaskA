@@ -2,7 +2,7 @@ import os
 import glob
 import cv2
 import numpy as np
-import jpegio as jio
+import jpeg_backend as jio
 from tqdm import tqdm
 
 # ================= 配置参数 =================
